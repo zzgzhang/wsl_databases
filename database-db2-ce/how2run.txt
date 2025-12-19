@@ -1,0 +1,53 @@
+####################################
+#GET INTO WORKFOLDER FIRST
+#
+#warn: 
+#Image icr.io/db2_community/db2 2.589GB Pulling
+###################################
+
+# Create and start containers in the background
+docker compose up -d
+
+# Findout comopse service name
+docker compose ps -a
+docker compose start/stop/restart service-name
+
+# Stop and remove containers, networks
+docker compose down --volumes --rmi all
+
+# db2inst1
+docker exec -ti db2server bash -c "su - db2inst1"
+
+[db2inst1@db2server ~]$ db2 list db directory
+
+ System Database Directory
+
+ Number of entries in the directory = 1
+
+Database 1 entry:
+
+ Database alias                       = TESTDB
+ Database name                        = TESTDB
+ Local database directory             = /database/data
+ Database release level               = 16.00
+ Comment                              =
+ Directory entry type                 = Indirect
+ Catalog database partition number    = 0
+ Alternate server hostname            =
+ Alternate server port number         =
+
+[db2inst1@db2server ~]$ db2 connect to testdb
+[db2inst1@db2server ~]$ db2 connect to testdb user db2inst1 using password
+
+   Database Connection Information
+
+ Database server        = DB2/LINUXX8664 12.1.3.0
+ SQL authorization ID   = DB2INST1
+ Local database alias   = TESTDB
+
+[db2inst1@db2server ~]$
+[db2inst1@db2server ~]$ db2 list tables for schema testschema
+
+Table/View                      Schema          Type  Creation time
+------------------------------- --------------- ----- --------------------------
+USERS                           TESTSCHEMA      T     2025-12-19-06.07.37.889394

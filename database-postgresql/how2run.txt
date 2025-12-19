@@ -1,0 +1,28 @@
+####################################
+#GET INTO WORKFOLDER FIRST
+#
+###################################
+
+# Create and start containers in the background
+docker compose up -d
+
+# Findout comopse service name
+docker compose ps -a
+docker compose start/stop/restart service-name
+
+# Stop and remove containers, networks
+docker compose down --volumes --rmi all
+
+# postgre-psql
+docker compose exec -it service-name psql -U postgres -d postgres
+docker exec -it container-id psql -U postgres -d postgres
+
+postgres=# \dt
+          List of tables
+ Schema | Name  | Type  |  Owner
+--------+-------+-------+----------
+ public | users | table | postgres
+(1 row)
+
+postgres=#
+postgres=# \q

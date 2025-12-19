@@ -1,0 +1,12 @@
+services:
+  postgres:
+    build: .
+    ports:
+      - "54320:5432"
+    environment:
+      POSTGRES_PASSWORD: 'root'
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    restart: always
+volumes:
+  postgres_data:
